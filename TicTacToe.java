@@ -1,44 +1,50 @@
 /**
  * TicTacToe
- * UC8 controls the continuous game loop and alternates
- * turns until the game ends.
+ * UC9 checks whether a player has won by examining
+ * rows, columns, and diagonals.
  */
 public class TicTacToe {
 
-    static boolean isHumanTurn = true;
-    static boolean gameOver = false;
+    static char[][] board = new char[3][3];
 
     /**
-     * Entry point of the program. Demonstrates the structure
-     * of a continuous game loop.
+     * Entry point of the program. Tests the win-check logic.
      */
     public static void main(String[] args) {
+        // Sample setup for testing a row win
+        board[0][0] = 'X'; board[0][1] = 'X'; board[0][2] = 'X';
         
-        System.out.println("Game Started!");
+        System.out.println("Has X won? " + hasWon('X'));
+    }
 
-        // UC8: Continuous loop until game ends
-        while (!gameOver) {
-            if (isHumanTurn) {
-                System.out.println("--- Human's Turn ---");
-                // Here we would call getUserSlot(), validate, and placeMove()
-                
-                // For demonstration, we switch turn manually
-                isHumanTurn = false; 
-            } else {
-                System.out.println("--- Computer's Turn ---");
-                // Here we would call computerMove()
-                
-                isHumanTurn = true;
+    /**
+     * Checks all possible winning patterns for the given symbol.
+     * Input: Player symbol
+     * Output: true if win detected.
+     */
+    static boolean hasWon(char symbol) {
+        // 1. Check Rows
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
+                return true;
             }
-
-            // UC8 Logic: In a full game, we would check for win/draw here
-            // To prevent an infinite loop during this UC test, we set a condition
-            // Example: gameOver = checkWin() || checkDraw();
-            
-            // Temporary break for testing this specific UC
-            gameOver = true; 
         }
-        
-        System.out.println("Game Over!");
+
+        // 2. Check Columns
+        for (int i = 0; i < 3; i++) {
+            if (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol) {
+                return true;
+            }
+        }
+
+        // 3. Check Diagonals
+        if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
+            return true;
+        }
+        if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
+            return true;
+        }
+
+        return false;
     }
 }
