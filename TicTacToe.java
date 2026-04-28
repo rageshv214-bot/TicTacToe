@@ -1,31 +1,37 @@
-import java.util.Scanner;
-
 /**
  * TicTacToe
- * UC3 reads a slot number (1-9) entered by the user. This use case
- * focuses only on input handling without validation.
+ * UC4 converts a user-entered slot number (1-9) into corresponding
+ * row and column indices of a 2D array.
  */
 public class TicTacToe {
 
     /**
-     * Entry point of the program. Reads slot input and prints it back
-     * to verify correct user input handling.
+     * Entry point of the program. Demonstrates slot-to-index conversion
+     * using a sample slot value.
      */
     public static void main(String[] args) {
-        int slot = getUserSlot();
-        System.out.println("Slot entered: " + slot);
+        int slot = 7;
+        System.out.println("Row: " + getRowFromSlot(slot));
+        System.out.println("Column: " + getColFromSlot(slot));
     }
 
     /**
-     * Reads an integer slot value from the user.
-     * Input: Scanner object
-     * Output: Slot number (1-9)
-     * Hint: Validation will be added in later use cases.
+     * Converts slot number into row index using zero-based indexing.
+     * Input: Slot number (1-9)
+     * Output: Row index (0-2)
      */
-    static int getUserSlot() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a slot (1-9): ");
-        int slot = sc.nextInt();
-        return slot;
+    static int getRowFromSlot(int slot) {
+        // (slot - 1) / 3 gives the row (0, 1, or 2)
+        return (slot - 1) / 3;
+    }
+
+    /**
+     * Converts slot number into column index using modulo operation.
+     * Input: Slot number (1-9)
+     * Output: Column index (0-2)
+     */
+    static int getColFromSlot(int slot) {
+        // (slot - 1) % 3 gives the column (0, 1, or 2)
+        return (slot - 1) % 3;
     }
 }
