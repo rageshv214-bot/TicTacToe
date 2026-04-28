@@ -1,37 +1,43 @@
 /**
  * TicTacToe
- * UC4 converts a user-entered slot number (1-9) into corresponding
- * row and column indices of a 2D array.
+ * UC5 validates whether a move is inside the board boundaries
+ * and whether the selected cell is empty.
  */
 public class TicTacToe {
 
+    static char[][] board = {
+        {'-', '-', '-'},
+        {'-', '-', '-'},
+        {'-', '-', '-'}
+    };
+
     /**
-     * Entry point of the program. Demonstrates slot-to-index conversion
-     * using a sample slot value.
+     * Entry point of the program. Tests the validation logic
+     * using sample row and column values.
      */
     public static void main(String[] args) {
-        int slot = 7;
-        System.out.println("Row: " + getRowFromSlot(slot));
-        System.out.println("Column: " + getColFromSlot(slot));
+        // Testing a valid middle-cell move (1, 1)
+        System.out.println("Is move (1, 1) valid? " + isValidMove(1, 1));
     }
 
     /**
-     * Converts slot number into row index using zero-based indexing.
-     * Input: Slot number (1-9)
-     * Output: Row index (0-2)
+     * Checks if the given row and column are within bounds
+     * and if the target cell is empty.
+     * Input: Row, Column
+     * Output: true if valid, false otherwise.
      */
-    static int getRowFromSlot(int slot) {
-        // (slot - 1) / 3 gives the row (0, 1, or 2)
-        return (slot - 1) / 3;
-    }
+    static boolean isValidMove(int row, int col) {
+        // Check 1: Boundary Check (Must be between 0 and 2)
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
 
-    /**
-     * Converts slot number into column index using modulo operation.
-     * Input: Slot number (1-9)
-     * Output: Column index (0-2)
-     */
-    static int getColFromSlot(int slot) {
-        // (slot - 1) % 3 gives the column (0, 1, or 2)
-        return (slot - 1) % 3;
+        // Check 2: Availability Check (Must be '-')
+        if (board[row][col] != '-') {
+            return false;
+        }
+
+        // If both checks pass, the move is valid
+        return true;
     }
 }
