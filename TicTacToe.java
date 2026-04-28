@@ -1,53 +1,44 @@
-import java.util.Random;
-
 /**
  * TicTacToe
- * UC7 allows the computer to make a random valid move
- * by reusing slot conversion and validation logic.
+ * UC8 controls the continuous game loop and alternates
+ * turns until the game ends.
  */
 public class TicTacToe {
 
-    static char[][] board = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'}
-    };
-    static char computerSymbol = 'O';
+    static boolean isHumanTurn = true;
+    static boolean gameOver = false;
 
     /**
-     * Entry point of the program. Triggers the computer move.
+     * Entry point of the program. Demonstrates the structure
+     * of a continuous game loop.
      */
     public static void main(String[] args) {
-        computerMove();
-        // Display board to verify move
-        for (char[] row : board) {
-            for (char cell : row) System.out.print(cell + " ");
-            System.out.println();
-        }
-    }
+        
+        System.out.println("Game Started!");
 
-    /**
-     * Generates random slot values until a valid move is found,
-     * then places the computer symbol on the board.
-     */
-    static void computerMove() {
-        Random rand = new Random();
-        boolean moved = false;
-
-        while (!moved) {
-            // Generate random slot between 1 and 9
-            int slot = rand.nextInt(9) + 1;
-            
-            // Reuse logic from previous UCs (Map slot to indices)
-            int row = (slot - 1) / 3;
-            int col = (slot - 1) % 3;
-
-            // Reuse validation logic
-            if (board[row][col] == '-') {
-                board[row][col] = computerSymbol;
-                System.out.println("Computer chose slot: " + slot);
-                moved = true;
+        // UC8: Continuous loop until game ends
+        while (!gameOver) {
+            if (isHumanTurn) {
+                System.out.println("--- Human's Turn ---");
+                // Here we would call getUserSlot(), validate, and placeMove()
+                
+                // For demonstration, we switch turn manually
+                isHumanTurn = false; 
+            } else {
+                System.out.println("--- Computer's Turn ---");
+                // Here we would call computerMove()
+                
+                isHumanTurn = true;
             }
+
+            // UC8 Logic: In a full game, we would check for win/draw here
+            // To prevent an infinite loop during this UC test, we set a condition
+            // Example: gameOver = checkWin() || checkDraw();
+            
+            // Temporary break for testing this specific UC
+            gameOver = true; 
         }
+        
+        System.out.println("Game Over!");
     }
 }
