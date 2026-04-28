@@ -1,11 +1,40 @@
+
+
 public class TicTacToe {
+    // Global variables to track game state
+    static char playerSymbol;
+    static char computerSymbol;
+    static String currentPlayer;
+
     public static void main(String[] args) {
-        // UC1: Create and initialize 3x3 board
         char[][] board = new char[3][3];
         initializeBoard(board);
-
+        
         System.out.println("Welcome to Tic-Tac-Toe!");
+        
+        // UC2: Perform Toss and Assign Symbols
+        performToss();
+        
+        System.out.println("Toss Result: " + currentPlayer + " starts first.");
+        System.out.println("Player Symbol: " + playerSymbol);
+        System.out.println("Computer Symbol: " + computerSymbol);
+        
         displayBoard(board);
+    }
+
+    public static void performToss() {
+        // Randomly choose 0 or 1
+        int toss = (int) (Math.random() * 2);
+        
+        if (toss == 0) {
+            currentPlayer = "Player";
+            playerSymbol = 'X';
+            computerSymbol = 'O';
+        } else {
+            currentPlayer = "Computer";
+            computerSymbol = 'X';
+            playerSymbol = 'O';
+        }
     }
 
     public static void initializeBoard(char[][] board) {
@@ -24,4 +53,4 @@ public class TicTacToe {
             System.out.println();
         }
     }
-} 
+}
